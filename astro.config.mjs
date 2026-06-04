@@ -1,8 +1,8 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-const site = process.env.ASTRO_SITE ?? "https://example.com";
-const base = process.env.ASTRO_BASE ?? "/";
+const site = process.env.ASTRO_SITE ?? "https://insidae.github.io";
+const base = process.env.ASTRO_BASE ?? "/belgravia-dance";
 
 export default defineConfig({
   site,

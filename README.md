@@ -16,14 +16,20 @@ npm run dev
 
 This project expects Node `22.20.0` (see `.nvmrc`).
 
+By default, builds target the GitHub Pages project-site path:
+
+```text
+https://insidae.github.io/belgravia-dance/
+```
+
 ## GitHub Pages
 
 This repo is configured to deploy as a GitHub Pages project site from the `main` branch using GitHub Actions.
 
-For a repository named `belgravia-dance`, the published URL will normally be:
+For this repository, the published URL will normally be:
 
 ```text
-https://<your-github-username>.github.io/belgravia-dance/
+https://insidae.github.io/belgravia-dance/
 ```
 
 What is already set up:
@@ -32,6 +38,8 @@ What is already set up:
 - [astro.config.mjs](/Users/matt/Projects/belgravia-dance/astro.config.mjs) reads `ASTRO_SITE` and `ASTRO_BASE`
 - internal links are base-aware, so they work correctly when served from `/belgravia-dance/`
 
+If you build locally with the standard `npm run build`, the `dist` output is ready to be copied into the `belgravia-dance` folder of `insidae.github.io`.
+
 To publish on GitHub Pages:
 
 1. Push this repo to GitHub.
@@ -39,4 +47,4 @@ To publish on GitHub Pages:
 3. Set the source to `GitHub Actions`.
 4. Push to `main` and GitHub will deploy automatically.
 
-If you later move to a custom domain, you can remove the repo base path by changing the deployment environment variables and Astro `site` setting.
+If you later move to a custom domain, set `ASTRO_SITE` to your domain and `ASTRO_BASE=/` before building or deploying.
