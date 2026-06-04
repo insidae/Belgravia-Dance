@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import bookingBackground from "../assets/03.webp";
+
+const lessonParam = Astro.url.searchParams.get("lesson");
+const selectedLesson = lessonParam === "children" ? "Children's lesson" : "Adult lesson";
+---
+
+<BaseLayout
+  title="Belgravia Dance | Book a Lesson"
+  description="Book a dance lesson with Hannah Lancaster at Belgravia Dance. Request adult or children's private tuition in London."
+  backgroundImage={bookingBackground.src}
+  backgroundPosition="left center"
+>
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Booking</span>
+        <h1>Request your lesson with Hannah Lancaster.</h1>
+        <p class="hero-copy">
+          Use the booking form below to enquire about availability for private adult coaching or children's dance
+          lessons. The form is configured to open an email draft, making it easy to adapt once final contact details are confirmed.
+        </p>
+      </div>
+
+      <div class="portrait">
+        <div class="portrait-panel">
+          <strong>Preferred lesson</strong>
+          <p class="muted">{selectedLesson}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="section-panel booking-grid">
+      <div>
+        <h2>Booking details</h2>
+        <p class="muted">
+          Share a few details and the form will prepare an enquiry email to Hannah. This keeps the site fully static
+          while still giving visitors a practical way to request a lesson.
+        </p>
+        <div class="details-grid">
+          <div class="detail"><span>Teacher</span><strong>Hannah Lancaster</strong></div>
+          <div class="detail"><span>Location</span><strong>Belgravia and wider London</strong></div>
+          <div class="detail"><span>Lesson types</span><strong>Adult and children's private tuition</strong></div>
+          <div class="detail"><span>Response style</span><strong>Email consultation and scheduling</strong></div>
+        </div>
+      </div>
+
+      <form
+        id="booking-form"
+        data-default-lesson={selectedLesson}
+      >
+        <label>
+          Your name
+          <input name="name" type="text" placeholder="Full name" required />
+        </label>
+
+        <label>
+          Email address
+          <input name="email" type="email" placeholder="you@example.com" required />
+        </label>
+
+        <label>
+          Lesson type
+          <select name="lessonType">
+            <option selected={selectedLesson === "Adult lesson"}>Adult lesson</option>
+            <option selected={selectedLesson === "Children's lesson"}>Children's lesson</option>
+          </select>
+        </label>
+
+        <label>
+          Preferred day or time
+          <input name="timing" type="text" placeholder="Weekday evenings, Saturday mornings..." />
+        </label>
+
+        <label>
+          Tell us a little more
+          <textarea
+            name="notes"
+            placeholder="Experience level, goals, age of child if relevant, preferred location, or anything else Hannah should know."
+          ></textarea>
+        </label>
+
+        <button class="button primary" type="submit">Create booking email</button>
+        <p class="fine-print">
+          The email currently targets <strong>hello@belgraviadance.co.uk</strong>. You can replace this address later if needed.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById("booking-form");
+
+    if (form instanceof HTMLFormElement) {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const data = new FormData(form);
+        const name = String(data.get("name") ?? "").trim();
+        const email = String(data.get("email") ?? "").trim();
+        const lessonType = String(data.get("lessonType") ?? form.dataset.defaultLesson ?? "Lesson enquiry");
+        const timing = String(data.get("timing") ?? "").trim();
+        const notes = String(data.get("notes") ?? "").trim();
+
+        const subject = encodeURIComponent(`${lessonType} enquiry from ${name}`);
+        const body = encodeURIComponent(
+          [
+            `Name: ${name}`,
+            `Email: ${email}`,
+            `Lesson type: ${lessonType}`,
+            `Preferred time: ${timing || "Not specified"}`,
+            "",
+            "Additional details:",
+            notes || "None provided"
+          ].join("\n")
+        );
+
+        window.location.href = `mailto:hello@belgraviadance.co.uk?subject=${subject}&body=${body}`;
+      });
+    }
+  </script>
+</BaseLayout>

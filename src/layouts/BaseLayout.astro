@@ -1,0 +1,506 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  backgroundImage?: string;
+  backgroundPosition?: string;
+}
+
+const {
+  title,
+  description,
+  backgroundImage = "",
+  backgroundPosition = "center center"
+} = Astro.props;
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+const currentPath = Astro.url.pathname;
+
+const navigation = [
+  { href: withBase("/"), label: "Adult Lessons" },
+  { href: withBase("/childrens-lessons/"), label: "Children's Lessons" },
+  { href: withBase("/book/"), label: "Book a Lesson" }
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style is:global>
+      :root {
+        --bg: #f5f0e8;
+        --surface: rgba(255, 251, 245, 0.88);
+        --surface-strong: #fffaf3;
+        --text: #2f2925;
+        --muted: #6d6259;
+        --border: rgba(97, 37, 51, 0.14);
+        --accent: #7f2f46;
+        --accent-deep: #4f1426;
+        --shadow: 0 24px 60px rgba(79, 20, 38, 0.14);
+        --radius-lg: 32px;
+        --radius-md: 20px;
+        --radius-sm: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        position: relative;
+        margin: 0;
+        font-family: "Manrope", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(127, 47, 70, 0.2), transparent 28%),
+          radial-gradient(circle at top right, rgba(79, 20, 38, 0.12), transparent 24%),
+          linear-gradient(180deg, #f8f3eb 0%, #f2ece3 42%, #f7f1e8 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      body::before {
+        z-index: -2;
+        background-image: var(--page-background-image);
+        background-position: var(--page-background-position);
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(4px) saturate(1);
+        transform: scale(1.015);
+        opacity: 0.62;
+      }
+
+      body::after {
+        z-index: -1;
+        background:
+          linear-gradient(180deg, rgba(248, 243, 235, 0.34), rgba(242, 236, 227, 0.48) 38%, rgba(247, 241, 232, 0.6) 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        padding: 18px 0;
+        backdrop-filter: blur(18px);
+        background: rgba(245, 240, 232, 0.66);
+        border-bottom: 1px solid rgba(97, 37, 51, 0.08);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: grid;
+        gap: 4px;
+      }
+
+      .brand-mark {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+        line-height: 0.9;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-copy {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .nav a {
+        padding: 10px 16px;
+        border-radius: 999px;
+        color: var(--muted);
+        transition: 180ms ease;
+      }
+
+      .nav a:hover,
+      .nav a[aria-current="page"] {
+        background: rgba(79, 20, 38, 0.08);
+        color: var(--accent-deep);
+      }
+
+      .button,
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 22px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+      }
+
+      .button.primary {
+        background: var(--accent-deep);
+        color: white;
+        box-shadow: 0 18px 36px rgba(79, 20, 38, 0.18);
+      }
+
+      .button.primary:hover {
+        transform: translateY(-1px);
+        background: #3b0e1c;
+      }
+
+      .button.secondary {
+        border-color: rgba(79, 20, 38, 0.16);
+        color: var(--accent-deep);
+        background: rgba(255, 250, 243, 0.72);
+      }
+
+      main {
+        padding: 40px 0 72px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 600;
+        line-height: 0.98;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.7;
+      }
+
+      .hero,
+      .card,
+      .section-panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        border-radius: 40px;
+        padding: clamp(32px, 5vw, 56px);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.85fr;
+        gap: clamp(24px, 4vw, 48px);
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 18px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(127, 47, 70, 0.12);
+        color: var(--accent-deep);
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.4rem, 8vw, 3.8rem);
+      }
+
+      .hero-copy {
+        margin-top: 18px;
+        max-width: 58ch;
+        color: var(--muted);
+        font-size: 1.04rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .portrait {
+        min-height: 440px;
+        padding: 28px;
+        border-radius: var(--radius-lg);
+        background:
+          linear-gradient(180deg, rgba(79, 20, 38, 0.14), rgba(79, 20, 38, 0.03)),
+          linear-gradient(135deg, #d8c0c7, #f8efe3 62%, #d3aab6);
+        display: grid;
+        align-content: end;
+      }
+
+      .portrait-panel {
+        background: rgba(255, 250, 243, 0.9);
+        border-radius: 24px;
+        padding: 22px;
+        border: 1px solid rgba(79, 20, 38, 0.1);
+      }
+
+      .portrait-panel strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+
+      .stack {
+        display: grid;
+        gap: 22px;
+        margin-top: 28px;
+      }
+
+      .two-up,
+      .three-up {
+        display: grid;
+        gap: 22px;
+      }
+
+      .two-up {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .three-up {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card,
+      .section-panel {
+        border-radius: var(--radius-lg);
+        padding: 28px;
+      }
+
+      .card h3,
+      .section-panel h2 {
+        margin-bottom: 12px;
+        font-size: clamp(2rem, 3vw, 2.6rem);
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .list {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .list li {
+        padding: 14px 0;
+        border-top: 1px solid rgba(97, 37, 51, 0.12);
+      }
+
+      .list li:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .details-grid {
+        display: grid;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .detail {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(97, 37, 51, 0.12);
+      }
+
+      .detail span:first-child {
+        color: var(--muted);
+      }
+
+      .quote {
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        line-height: 1.2;
+      }
+
+      .booking-grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 24px;
+        align-items: start;
+      }
+
+      form {
+        display: grid;
+        gap: 14px;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(97, 37, 51, 0.16);
+        background: rgba(255, 252, 247, 0.92);
+        color: var(--text);
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .fine-print {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .footer {
+        padding: 0 0 44px;
+      }
+
+      .footer-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 22px 0;
+        border-top: 1px solid rgba(97, 37, 51, 0.12);
+        color: var(--muted);
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid,
+        .two-up,
+        .three-up,
+        .booking-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .portrait {
+          min-height: 300px;
+        }
+
+        .footer-panel,
+        .header-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .shell {
+          width: min(100% - 20px, 1120px);
+        }
+
+        .site-header {
+          padding: 14px 0;
+        }
+
+        .hero,
+        .card,
+        .section-panel {
+          padding: 22px;
+          border-radius: 26px;
+        }
+
+        .hero h1 {
+          font-size: clamp(2.8rem, 18vw, 4.4rem);
+        }
+
+        .nav {
+          gap: 6px;
+        }
+
+        .nav a {
+          padding: 8px 12px;
+        }
+      }
+    </style>
+  </head>
+  <body style={`--page-background-image: url(${backgroundImage}); --page-background-position: ${backgroundPosition};`}>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href={withBase("/")}>
+          <span class="brand-mark">Belgravia Dance</span>
+          <span class="brand-copy">Private tuition with Hannah Lancaster</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          {navigation.map((item) => (
+            <a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <slot />
+    </main>
+
+    <footer class="shell footer">
+      <div class="footer-panel">
+        <div>
+          <strong>Belgravia Dance</strong><br />
+          Elegant, expert-led dance lessons in London.
+        </div>
+        <div>Hannah Lancaster • Private coaching • Wedding dances • Young performers</div>
+      </div>
+    </footer>
+  </body>
+</html>

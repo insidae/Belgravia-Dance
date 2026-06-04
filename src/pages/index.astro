@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import adultBackground from "../assets/01.jpg";
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+---
+
+<BaseLayout
+  title="Belgravia Dance | Adult Dance Lessons with Hannah Lancaster"
+  description="Adult dance lessons in London with professional dancer Hannah Lancaster. Private tuition, wedding dance coaching and elegant confidence-building instruction."
+  backgroundImage={adultBackground.src}
+  backgroundPosition="center center"
+>
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Adult Dance Lessons</span>
+        <h1>Refined private dance tuition for adults.</h1>
+        <p class="hero-copy">
+          Belgravia Dance offers polished, personalised coaching for adults who want to move with ease,
+          musicality and confidence. Lessons are led by Hannah Lancaster, a professional dancer with extensive
+          performance and teaching experience.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href={withBase("/book/?lesson=adult")}>Book an adult lesson</a>
+          <a class="button secondary" href="#experience">View lesson experience</a>
+        </div>
+      </div>
+
+      <div class="portrait">
+        <div class="portrait-panel">
+          <strong>Hannah Lancaster</strong>
+          <p class="muted">
+            Professional dancer, private coach and trusted teacher for clients looking for beautifully tailored tuition.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="stack">
+    <div class="two-up">
+      <article class="card">
+        <h3>Lessons shaped around you</h3>
+        <p class="muted">
+          Whether you are preparing for a wedding, returning to dance after time away, or starting from scratch,
+          each session is adapted to your pace, goals and preferred style.
+        </p>
+        <ul class="list">
+          <li>Private one-to-one tuition</li>
+          <li>Wedding first dance preparation</li>
+          <li>Technique, posture and musicality coaching</li>
+          <li>Flexible instruction for beginners to advanced dancers</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>A calm, premium environment</h3>
+        <p class="muted">
+          Hannah’s teaching style is warm, precise and confidence-building. Expect clear guidance, elegant structure,
+          and lessons that feel relaxed while still delivering meaningful progress.
+        </p>
+        <div class="details-grid">
+          <div class="detail"><span>Format</span><strong>Private or paired lessons</strong></div>
+          <div class="detail"><span>Location</span><strong>London studio or agreed venue</strong></div>
+          <div class="detail"><span>Session length</span><strong>60 or 90 minutes</strong></div>
+          <div class="detail"><span>Focus</span><strong>Technique, choreography, confidence</strong></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="section-panel">
+      <h2>Ideal for social dancers, couples and discerning beginners.</h2>
+      <p class="muted">
+        Adult lessons are designed for people who value expert instruction without an intimidating atmosphere. Hannah
+        brings professional standards with a thoughtful approach that helps clients feel at ease from the first lesson.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href={withBase("/book/?lesson=adult")}>Arrange a consultation</a>
+        <a class="button secondary" href={withBase("/childrens-lessons/")}>Explore children's lessons</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="quote">
+        “Grace, clarity and confidence are at the heart of every lesson.”
+      </p>
+    </div>
+  </section>
+</BaseLayout>
