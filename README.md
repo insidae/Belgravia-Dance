@@ -22,6 +22,8 @@ By default, builds target the GitHub Pages project-site path:
 https://insidae.github.io/belgravia-dance/
 ```
 
+The project includes `public/.nojekyll` so GitHub Pages will serve Astro's `_astro` asset directory correctly.
+
 ## GitHub Pages
 
 This repo is configured to deploy as a GitHub Pages project site from the `main` branch using GitHub Actions.
