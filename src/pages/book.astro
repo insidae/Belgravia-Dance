@@ -1,57 +1,69 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import bookingBackground from "../assets/03.webp";
 
 const lessonParam = Astro.url.searchParams.get("lesson");
-const selectedLesson = lessonParam === "children" ? "Children's lesson" : "Adult lesson";
+
+const initialLesson =
+  lessonParam === "childrens-ballet"
+    ? "Children's ballet"
+    : lessonParam === "musical-theatre"
+      ? "Musical theatre"
+      : "Adult ballet";
 ---
 
 <BaseLayout
-  title="Belgravia Dance | Book a Lesson"
-  description="Book a dance lesson with Hannah Lancaster at Belgravia Dance. Request adult or children's private tuition in London."
-  backgroundImage={bookingBackground.src}
-  backgroundPosition="left center"
+  title="Belgravia Ballet School | Enquire"
+  description="Enquire about adult ballet, children's ballet, or musical theatre experiences at Belgravia Ballet School."
 >
   <section class="hero">
-    <div class="hero-grid">
+    <div class="">
       <div>
-        <span class="eyebrow">Booking</span>
-        <h1>Request your lesson with Hannah Lancaster.</h1>
+        <span class="eyebrow">Enquire</span>
+        <h1>
+          Begin your enquiry with
+          <span class="accent-script">Belgravia Ballet School.</span>
+        </h1>
         <p class="hero-copy">
-          Use the booking form below to enquire about availability for private adult coaching or children's dance
-          lessons. The form is configured to open an email draft, making it easy to adapt once final contact details are confirmed.
+          Use the form below to request information about adult ballet, children's ballet, or specialist musical
+          theatre experiences. The enquiry is kept deliberately simple and opens a pre-filled email draft so the site
+          remains easy to host as a static project.
         </p>
-      </div>
-
-      <div class="portrait">
-        <div class="portrait-panel">
-          <strong>Preferred lesson</strong>
-          <p class="muted">{selectedLesson}</p>
+        <div class="stat-strip">
+          <div class="stat">
+            <strong>Adult ballet</strong>
+            refined coaching, artistry, and technical confidence
+          </div>
+          <div class="stat">
+            <strong>Children's ballet</strong>
+            warm, aspirational, and carefully structured training
+          </div>
+          <div class="stat">
+            <strong>Musical theatre</strong>
+            specialist performance-led movement experiences
+          </div>
+          <div class="stat">
+            <strong>Static-friendly</strong>
+            GitHub Pages compatible email-led enquiry flow
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section class="stack">
-    <div class="section-panel booking-grid">
+    <div class="panel booking-grid">
       <div>
-        <h2>Booking details</h2>
-        <p class="muted">
-          Share a few details and the form will prepare an enquiry email to Hannah. This keeps the site fully static
-          while still giving visitors a practical way to request a lesson.
-        </p>
-        <div class="details-grid">
-          <div class="detail"><span>Teacher</span><strong>Hannah Lancaster</strong></div>
-          <div class="detail"><span>Location</span><strong>Belgravia and wider London</strong></div>
-          <div class="detail"><span>Lesson types</span><strong>Adult and children's private tuition</strong></div>
-          <div class="detail"><span>Response style</span><strong>Email consultation and scheduling</strong></div>
+        <h2>Get in touch today</h2>
+
+        <div class="booking-note">
+          <p class="muted">
+            The enquiry email currently routes to <strong>hello@belgraviadance.co.uk</strong>. Update this to the final
+            school inbox before launch if needed.
+          </p>
         </div>
       </div>
 
-      <form
-        id="booking-form"
-        data-default-lesson={selectedLesson}
-      >
+      <form id="booking-form" data-default-lesson={initialLesson}>
         <label>
           Your name
           <input name="name" type="text" placeholder="Full name" required />
@@ -63,30 +75,28 @@ const selectedLesson = lessonParam === "children" ? "Children's lesson" : "Adult
         </label>
 
         <label>
-          Lesson type
+          Enquiry type
           <select name="lessonType">
-            <option selected={selectedLesson === "Adult lesson"}>Adult lesson</option>
-            <option selected={selectedLesson === "Children's lesson"}>Children's lesson</option>
+            <option selected={initialLesson === "Adult ballet"}>Adult ballet</option>
+            <option selected={initialLesson === "Children's ballet"}>Children's ballet</option>
+            <option selected={initialLesson === "Musical theatre"}>Musical theatre</option>
           </select>
         </label>
 
         <label>
-          Preferred day or time
-          <input name="timing" type="text" placeholder="Weekday evenings, Saturday mornings..." />
+          Preferred schedule
+          <input name="timing" type="text" placeholder="Weekdays, weekends, after school, evenings..." />
         </label>
 
         <label>
-          Tell us a little more
+          Tell us more
           <textarea
             name="notes"
-            placeholder="Experience level, goals, age of child if relevant, preferred location, or anything else Hannah should know."
+            placeholder="Age of student if relevant, experience level, goals, preferred class type, or anything Rachel and Hannah should know."
           ></textarea>
         </label>
 
-        <button class="button primary" type="submit">Create booking email</button>
-        <p class="fine-print">
-          The email currently targets <strong>hello@belgraviadance.co.uk</strong>. You can replace this address later if needed.
-        </p>
+        <button class="button primary" type="submit">Send Enquiry</button>
       </form>
     </div>
   </section>
@@ -101,7 +111,7 @@ const selectedLesson = lessonParam === "children" ? "Children's lesson" : "Adult
         const data = new FormData(form);
         const name = String(data.get("name") ?? "").trim();
         const email = String(data.get("email") ?? "").trim();
-        const lessonType = String(data.get("lessonType") ?? form.dataset.defaultLesson ?? "Lesson enquiry");
+        const lessonType = String(data.get("lessonType") ?? form.dataset.defaultLesson ?? "School enquiry");
         const timing = String(data.get("timing") ?? "").trim();
         const notes = String(data.get("notes") ?? "").trim();
 
@@ -110,8 +120,8 @@ const selectedLesson = lessonParam === "children" ? "Children's lesson" : "Adult
           [
             `Name: ${name}`,
             `Email: ${email}`,
-            `Lesson type: ${lessonType}`,
-            `Preferred time: ${timing || "Not specified"}`,
+            `Enquiry type: ${lessonType}`,
+            `Preferred schedule: ${timing || "Not specified"}`,
             "",
             "Additional details:",
             notes || "None provided"

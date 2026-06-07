@@ -1,0 +1,118 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import adultBackground from "../assets/03.webp";
+import hannahPerformance from "../assets/Extra-Hannah.jpg";
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+---
+
+<BaseLayout
+  title="Belgravia Ballet School | Adult Ballet"
+  description="Adult ballet lessons and performance-led coaching from Belgravia Ballet School, designed for discerning adult students seeking technique, artistry, and confidence."
+  backgroundImage={adultBackground.src}
+  backgroundPosition="left center"
+>
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Adult Ballet</span>
+        <h1>
+          Refined adult ballet coaching,
+          <span class="accent-script">for technique, artistry, and stage confidence.</span>
+        </h1>
+        <p class="hero-copy">
+          Adult training at Belgravia Ballet School is designed for students who want a premium, highly professional
+          environment without losing warmth or accessibility. Sessions support classical development, expressive
+          movement, and the kind of confidence that comes from careful, beautiful teaching.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href={withBase("/book/?lesson=adult-ballet")}>Enquire about adult ballet</a>
+          <a class="button secondary" href={withBase("/")}>Return to school overview</a>
+        </div>
+
+        <div class="stat-strip">
+          <div class="stat">
+            <strong>Technique</strong>
+            placement, line, control, coordination, and musical precision
+          </div>
+          <div class="stat">
+            <strong>Expression</strong>
+            movement quality shaped by theatrical confidence and artistry
+          </div>
+          <div class="stat">
+            <strong>Atmosphere</strong>
+            editorial, polished, warm, and confidence-building
+          </div>
+          <div class="stat">
+            <strong>Suitable for</strong>
+            dedicated beginners, returning dancers, and experienced adults
+          </div>
+        </div>
+      </div>
+
+      <div class="image-frame hero-portrait">
+        <img src={hannahPerformance.src} alt="Rachel Angus performing dramatically on stage." />
+      </div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="feature-grid">
+      <article class="card">
+        <h3>Private Coaching</h3>
+        <p class="muted">
+          Thoughtfully structured sessions tailored to individual goals, whether you are returning to ballet or
+          developing an already established technical base.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Confident Progression</h3>
+        <p class="muted">
+          The adult experience is designed to feel composed and elevated, using refined pacing and beautiful structure
+          rather than intensity for its own sake.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Performance Awareness</h3>
+        <p class="muted">
+          The school’s theatrical influence supports musicality, stage presence, and expressive confidence alongside
+          clear classical discipline.
+        </p>
+      </article>
+    </div>
+
+    <div class="">
+
+      <article class="panel">
+        <h2>Adult ballet details</h2>
+        <div class="detail-grid">
+          <div class="detail">
+            <span>Format</span>
+            Private coaching and tailored development sessions
+          </div>
+          <div class="detail">
+            <span>Focus</span>
+            Technique, artistry, confidence, and musical responsiveness
+          </div>
+          <div class="detail">
+            <span>Feel</span>
+            High-end, legible, and deeply supportive
+          </div>
+          <div class="detail">
+            <span>Next step</span>
+            Enquiry-led consultation via the booking page
+          </div>
+        </div>
+        <div class="button-row">
+          <a class="button primary" href={withBase("/book/?lesson=adult-ballet")}>Arrange an enquiry</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="quote-panel">
+      <p>"Classical technique, musical intelligence, and expressive confidence for adult dancers."</p>
+    </div>
+  </section>
+</BaseLayout>

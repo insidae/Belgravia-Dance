@@ -1,103 +1,133 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import childrenBackground from "../assets/04.webp";
+import rachelTeaching from "../assets/Extra-Rachel.jpg";
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 ---
 
 <BaseLayout
-  title="Belgravia Dance | Children's Dance Lessons with Hannah Lancaster"
-  description="Children's dance lessons in London with professional dancer Hannah Lancaster. Nurturing, structured training for young dancers and aspiring performers."
+  title="Belgravia Ballet School | Children's Ballet Lessons"
+  description="Children's ballet lessons from Belgravia Ballet School. A premium, warm, and inclusive environment with strong technique, RAD-approved training, and musical theatre experiences."
   backgroundImage={childrenBackground.src}
-  backgroundPosition="center 25%"
+  backgroundPosition="center 24%"
 >
   <section class="hero">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">Children's Dance Lessons</span>
-        <h1>Nurturing, professional tuition for young dancers.</h1>
+        <span class="eyebrow">Children's Ballet</span>
+        <h1>
+          Premier ballet training for children,
+          <span class="accent-script">rooted in technique, confidence, and joy.</span>
+        </h1>
         <p class="hero-copy">
-          Hannah Lancaster offers structured dance lessons for children in a setting that feels both encouraging and
-          aspirational. Sessions help young dancers build technique, musical awareness and performance confidence at the
-          right pace for their age and experience.
+          Belgravia Ballet School is designed for families seeking established credentials, premium presentation, and a
+          deeply supportive environment. Children's lessons nurture classical technique, personal development, and
+          wellbeing while preserving the delight and aspiration that make dance memorable.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href={withBase("/book/?lesson=children")}>Book a children's lesson</a>
+          <a class="button primary" href={withBase("/book/?lesson=childrens-ballet")}>Enquire about children's classes</a>
           <a class="button secondary" href="#programme">View the programme</a>
         </div>
       </div>
 
-      <div class="portrait">
-        <div class="portrait-panel">
-          <strong>Professional and reassuring</strong>
-          <p class="muted">
-            Hannah combines a high standard of training with a patient approach that helps children enjoy learning and feel proud of their progress.
-          </p>
-        </div>
+      <div class="image-frame hero-portrait">
+        <img src={rachelTeaching.src} alt="Hannah Lancaster teaching a young ballet student." />
       </div>
     </div>
   </section>
 
   <section id="programme" class="stack">
-    <div class="three-up">
+    <div class="feature-grid">
       <article class="card">
-        <h3>Foundations</h3>
+        <h3>Foundational ballet</h3>
         <p class="muted">
-          A strong grounding in rhythm, posture, coordination and core technique for younger children or complete beginners.
+          Age-appropriate teaching that builds turnout awareness, coordination, musicality, and posture with calm,
+          encouraging structure from the very beginning.
         </p>
       </article>
 
       <article class="card">
-        <h3>Progression</h3>
+        <h3>RAD-approved rigour</h3>
         <p class="muted">
-          Clear coaching for children already attending classes who would benefit from focused private attention and extra polish.
+          The school’s training is positioned to appeal to parents looking for established standards, clear progression,
+          and beautifully taught classical discipline.
         </p>
       </article>
 
       <article class="card">
-        <h3>Performance</h3>
+        <h3>Musical theatre experiences</h3>
         <p class="muted">
-          Thoughtful preparation for shows, auditions, competitions or school performances, always tailored to the child’s goals.
+          Alongside ballet technique, the school can support specialist musical theatre experiences that build stage
+          confidence, expression, and performance quality.
         </p>
       </article>
     </div>
 
-    <div class="two-up">
-      <article class="section-panel">
-        <h2>What parents can expect</h2>
-        <p class="muted">
-          Lessons balance encouragement and discipline, helping children develop artistry and confidence while enjoying the process.
-        </p>
-        <ul class="list">
-          <li>Age-appropriate coaching and positive structure</li>
-          <li>Support for recreational and ambitious young dancers</li>
-          <li>Focus on confidence, consistency and enjoyment</li>
-          <li>Suitable for private tuition or sibling sessions</li>
-        </ul>
+    <div class="split-grid">
+      <article class="panel">
+        <h2>The best possible start</h2>
+        <div class="">
+          <div class="detail">
+            <span>Audience</span>
+            Parents seeking premier ballet training for children
+          </div>
+          <div class="detail">
+            <span>Core balance</span>
+            Technique and theatrical expression working together
+          </div>
+          <div class="detail">
+            <span>Environment</span>
+            Inclusive, cohesive, and confidence-building
+          </div>
+        </div>
       </article>
 
-      <article class="section-panel">
-        <h2>Flexible lesson options</h2>
-        <p class="muted">
-          Sessions can be arranged around school schedules and family commitments, with formats designed to keep children engaged and progressing well.
-        </p>
-        <div class="details-grid">
-          <div class="detail"><span>Age range</span><strong>Children and teens</strong></div>
-          <div class="detail"><span>Formats</span><strong>Private or small shared sessions</strong></div>
-          <div class="detail"><span>Length</span><strong>45 or 60 minutes</strong></div>
-          <div class="detail"><span>Suitable for</span><strong>Beginners to aspiring performers</strong></div>
+      <article class="panel">
+        <h2>A school built for progression and delight.</h2>
+        <ul class="list">
+          <li>Classes that combine structure with an inviting, nurturing atmosphere</li>
+          <li>Training that supports both recreational students and ambitious young dancers</li>
+          <li>Professional teaching from experienced co-founders and performers</li>
+          <li>Strong visual emphasis on classical ballet heritage without feeling antiquated</li>
+        </ul>
+        <div class="button-row">
+          <a class="button primary" href={withBase("/book/?lesson=childrens-ballet")}>Arrange a consultation</a>
+          <a class="button secondary" href={withBase("/adult-ballet/")}>Explore adult ballet</a>
         </div>
       </article>
     </div>
 
-    <div class="card">
-      <p class="quote">
-        Lessons are designed to feel inspiring, safe and beautifully well-guided from the very beginning.
-      </p>
-      <div class="hero-actions">
-        <a class="button primary" href={withBase("/book/?lesson=children")}>Enquire about availability</a>
-        <a class="button secondary" href={withBase("/")}>Return to adult lessons</a>
-      </div>
+    <div class="split-grid">
+      <article class="teacher-card">
+        <img src={rachelTeaching.src} alt="Hannah Lancaster supporting a child during ballet class." />
+        <div class="teacher-body">
+          <span class="teacher-title">Children's Training</span>
+          <h3>Warm, precise teaching</h3>
+          <p class="muted">
+            Hannah Lancaster’s reassuring coaching style supports the brief’s focus on wellbeing, confidence, and a
+            supportive environment alongside elite standards.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Trusted guidance for ambitious families.</h2>
+        <p class="muted">
+          Families arriving here should understand immediately that the school blends established credentials with a
+          supportive culture.
+        </p>
+        <ul class="list">
+          <li>Founder-led teaching rooted in professional dance experience</li>
+          <li>Presentation that feels elegant, modern, and classically informed</li>
+          <li>Clear emphasis on confidence, development, and student wellbeing</li>
+          <li>Suitable for both recreational dancers and more ambitious pathways</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="quote-panel">
+      <p>"A cohesive and inclusive environment where the love of dance, wellbeing, and confidence thrive."</p>
     </div>
   </section>
 </BaseLayout>
